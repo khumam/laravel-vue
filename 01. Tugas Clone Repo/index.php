@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contoh lain tugas</title>
+    <title>Tugas pertama</title>
 </head>
 <body>
-    <h1>Masukan semua tugas yang berkaitan ke dalam folder ini</h1>
+    <h1>Tugas Clone Repo</h1>
 </body>
 </html>
