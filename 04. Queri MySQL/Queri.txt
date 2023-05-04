@@ -1,0 +1,17 @@
+SELECT * FROM obat ORDER BY nama_obat DESC;
+SELECT * FROM obat ORDER BY stok_obat ASC;
+SELECT * FROM obat WHERE pembuat_obat LIKE '%farma%';
+SELECT * FROM obat WHERE pembuat_obat LIKE '%Prodia%';
+SELECT pembuat_obat, SUM(stok_obat) AS total FROM obat GROUP BY pembuat_obat;
+SELECT pembuat_obat, SUM(stok_obat) AS total FROM obat WHERE stok_obat > 100 GROUP BY pembuat_obat;
+SELECT nama_obat, SUM(stok_obat) AS total FROM obat WHERE stok_obat > 100 GROUP BY nama_obat;
+SELECT nama_obat, SUM(stok_obat) AS total FROM obat WHERE stok_obat > 100 GROUP BY nama_obat ORDER BY total ASC;
+SELECT id_obat, SUM(jumlah_transaksi) AS total FROM transaksi WHERE jumlah_transaksi > 3 GROUP BY id_obat;
+SELECT id_obat, SUM(jumlah_transaksi) AS total FROM transaksi WHERE jumlah_transaksi <= 8 GROUP BY id_obat;
+
+
+
+
+
+
+
