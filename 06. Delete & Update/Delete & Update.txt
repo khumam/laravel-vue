@@ -1,0 +1,6 @@
+UPDATE obat SET stok_obat = 50 WHERE nama_obat = 'Obat Telinga'
+UPDATE obat SET pembuat_obat = 'Hermina' WHERE pembuat_obat = 'Pyridam'
+UPDATE obat SET nama_obat = 'Obat Darah Tinggi' WHERE nama_obat = 'Obat Radang'
+DELETE FROM transaksi WHERE id_obat = '7'
+DELETE FROM transaksi WHERE id_obat = '2'
+
