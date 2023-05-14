@@ -1,0 +1,10 @@
+1. SELECT * FROM `obat`;
+2. SELECT * FROM `jenis`;
+3. SELECT * FROM `supplier`;
+4. SELECT * FROM `obat` WHERE id_jenis = 2;
+5. SELECT nama_obat, stok, harga_jual FROM `obat`;
+6. SELECT id_supplier, nama_obat, harga_beli FROM `obat` WHERE id_supplier = 2;
+7. SELECT com_supplier, alamat FROM `supplier`;
+8. SELECT com_supplier, alamat FROM `supplier` WHERE kota = 'Jakarta';
+9. SELECT * FROM `supplier` WHERE kota = 'Manado';
+10. SELECT id_jenis, nama_obat, stok FROM `obat` WHERE id_jenis = 3;

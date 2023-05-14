@@ -1,0 +1,5 @@
+SELECT * FROM `obat` WHERE `id_jenis` = 2;
+SELECT `nama_obat`, `stok`, `harga_jual`, `tahun_exp` FROM `obat` WHERE `id_jenis` = 3
+INSERT INTO `obat`(`id`, `nama_obat`, `id_jenis`, `stok`, `harga_jual`, `harga_beli`, `id_supplier`, `tahun_exp`) VALUES ('','Cefixime','1','53','20000','22000','1','2026');
+UPDATE `obat` SET `harga_beli`='22000',`harga_jual`='18000' WHERE `id` = 6;
+DELETE FROM `obat` WHERE `id` = 13;

@@ -1,0 +1,21 @@
+Contoh Relasi :
+1. One to One
+	# supplier -> detail_supplier
+	  => satu "supplier" hanya memiliki satu "detail_supplier" DAN
+	     "detail_supplier" hanya dimiliki oleh satu "supplier"
+
+2. One to Many
+	# obat -> supplier
+	  => satu "supplier" bisa memasok banyak "obat" TAPI
+	     satu "obat" tidak bisa dipasok dari banyak "supplier"
+	
+	# transaksi -> pembeli
+	  => satu "pembeli" dapat melakukan banyak "transaksi" TAPI
+	     suatu "transaksi" yang sama hanya dapat dilakukan oleh 
+	     "pembeli" itu sendiri.
+
+3. Many to Many
+	# obat -> jenis
+	  => satu "obat" bisa terdapat banyak "jenis". misal(obat sirup dan tablet)
+	     SEBALIKNYA
+             satu "jenis" terdapat banyak "obat"

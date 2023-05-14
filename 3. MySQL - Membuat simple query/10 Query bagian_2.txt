@@ -1,0 +1,10 @@
+1. SELECT * FROM `obat` ORDER BY stok DESC
+2. SELECT * FROM `obat` ORDER BY harga_beli ASC
+3. SELECT * FROM `obat` WHERE nama_obat LIKE '%para%'
+4. SELECT * FROM `obat` WHERE nama_obat LIKE '%ac%'
+5. SELECT id_jenis, SUM(stok) as total FROM `obat` GROUP BY id_jenis
+6. SELECT id_supplier, SUM(stok) as total FROM `obat` GROUP BY id_supplier
+7. SELECT nama_obat, SUM(harga_beli) as total FROM `obat` GROUP BY nama_obat
+8. SELECT tahun_exp, SUM(harga_beli) as total FROM `obat` GROUP BY tahun_exp
+9. SELECT tahun_exp, SUM(harga_jual) as total FROM `obat` WHERE tahun_exp > 2024 GROUP BY tahun_exp ORDER BY tahun_exp DESC
+10. SELECT tahun_exp, SUM(harga_beli) as total FROM `obat` GROUP BY tahun_exp ORDER BY tahun_exp DESC 
