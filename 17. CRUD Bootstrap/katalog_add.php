@@ -17,6 +17,10 @@
 	<form action="katalog_add.php" method="post" name="form1">
 		<table width="25%" border="0">
 			<tr> 
+				<td>ID Katalog</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr> 
 				<td class="form-label">Nama Katalog</td>
 				<td><input class="form-control" type="text" name="nama"></td>
 			</tr>
@@ -31,11 +35,12 @@
 	 
 		// Check If form submitted, insert form data into users table.
 		if(isset($_POST['Submit'])) {
+			$id_katalog = $_POST['id'];
 			$nama = $_POST['nama'];
 
 			include_once("connect.php");
 
-			$result = mysqli_query($mysqli, "INSERT INTO `katalog` (`nama`) VALUES ('$nama');");
+			$result = mysqli_query($mysqli, "INSERT INTO `katalog` (`id_katalog`,`nama`) VALUES ('$id_katalog','$nama');");
 			
 			header("Location:katalog.php");
 		}

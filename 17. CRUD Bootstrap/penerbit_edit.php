@@ -13,6 +13,7 @@
 
     while($penerbit_data = mysqli_fetch_array($penerbit))
     {
+		$id_penerbit = $penerbit_data['id_penerbit'];
 		$nama_penerbit = $penerbit_data['nama_penerbit'];
     	$email = $penerbit_data['email'];
     	$telp = $penerbit_data['telp'];
@@ -26,6 +27,10 @@
  
 	<form action="penerbit_edit.php?nama_penerbit=<?php echo $nama_penerbit; ?>" method="post">
 		<table width="25%" border="0">	
+			<tr> 
+				<td>ID Penerbit</td>
+				<td><input type="text" name="id_penerbit" value="<?php echo $id_penerbit; ?>"></td>
+			</tr>
 			<tr> 
 				<td class="form-label">Nama Penerbit</td>
 				<td><input class="form-control" type="text" name="nama_penerbit" value="<?php echo $nama_penerbit; ?>"></td>
@@ -54,6 +59,7 @@
 		// Check If form submitted, insert form data into users table.
 		if(isset($_POST['update'])) {
 			$nama_penerbit = $_GET['nama_penerbit'];
+			$id_penerbit = $_POST['id_penerbit'];
 			$nama_update = $_POST['nama_penerbit'];
 			$email = $_POST['email'];
 			$telp = $_POST['telp'];
@@ -61,7 +67,7 @@
 			
 			include_once("connect.php");
 
-			$result = mysqli_query($mysqli, "UPDATE penerbit SET nama_penerbit = '$nama_update', email = '$email', telp = '$telp', alamat = '$alamat' WHERE nama_penerbit = '$nama_penerbit';");
+			$result = mysqli_query($mysqli, "UPDATE penerbit SET id_penerbit = '$id_penerbit', nama_penerbit = '$nama_update', email = '$email', telp = '$telp', alamat = '$alamat' WHERE nama_penerbit = '$nama_penerbit';");
 			
 			header("Location:penerbit.php");
 		}

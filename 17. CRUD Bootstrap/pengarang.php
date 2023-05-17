@@ -1,6 +1,6 @@
 <?php
     include_once("connect.php");
-    $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang ORDER BY nama_pengarang ASC");
+    $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang ORDER BY id_pengarang ASC");
 ?>
  
 <html>
@@ -25,6 +25,7 @@
     <table class="table table-striped" width='80%' border=1>
  
     <tr>
+        <th>ID Pengarang</th>
         <th>Nama Pengarang</th> 
         <th>Email</th> 
         <th>No. Telepon</th> 
@@ -34,6 +35,7 @@
     <?php  
         while($pengarang_data = mysqli_fetch_array($pengarang)) {         
             echo "<tr>";
+            echo "<td>".$pengarang_data['id_pengarang']."</td>";
             echo "<td>".$pengarang_data['nama_pengarang']."</td>";
             echo "<td>".$pengarang_data['email']."</td>";
             echo "<td>".$pengarang_data['telp']."</td>";    

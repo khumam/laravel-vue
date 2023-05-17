@@ -1,6 +1,6 @@
 <?php
     include_once("connect.php");
-    $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit ORDER BY nama_penerbit ASC");
+    $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit ORDER BY id_penerbit ASC");
 ?>
  
 <html>

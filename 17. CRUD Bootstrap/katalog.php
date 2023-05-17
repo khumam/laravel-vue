@@ -1,6 +1,6 @@
 <?php
     include_once("connect.php");
-    $katalog = mysqli_query($mysqli, "SELECT * FROM katalog ORDER BY nama ASC");
+    $katalog = mysqli_query($mysqli, "SELECT * FROM katalog ORDER BY id_katalog ASC");
 ?>
  
 <html>
@@ -25,12 +25,14 @@
     <table class="table table-striped" width='80%' border=1>
  
     <tr>
+        <th>ID Katalog</th> 
         <th>Nama Katalog</th> 
         <th>Aksi</th>
     </tr>
     <?php  
         while($katalog_data = mysqli_fetch_array($katalog)) {         
             echo "<tr>";
+            echo "<td>".$katalog_data['id_katalog']."</td>";
             echo "<td>".$katalog_data['nama']."</td>";           
             echo "<td><a class='btn btn-primary' href='katalog_edit.php?nama=$katalog_data[nama]'>Edit</a> | <a class='btn btn-danger' href='katalog_delete.php?nama=$katalog_data[nama]'>Delete</a></td></tr>";        
         }
