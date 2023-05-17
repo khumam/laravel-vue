@@ -25,6 +25,7 @@
     <table class="table" width='80%' border=1>
  
     <tr>
+        <th>ID Penerbit</th>
         <th>Nama Penerbit</th> 
         <th>Email</th> 
         <th>No. Telepon</th> 
@@ -34,6 +35,7 @@
     <?php  
         while($penerbit_data = mysqli_fetch_array($penerbit)) {         
             echo "<tr>";
+            echo "<td>".$penerbit_data['id_penerbit']."</td>";
             echo "<td>".$penerbit_data['nama_penerbit']."</td>";
             echo "<td>".$penerbit_data['email']."</td>";
             echo "<td>".$penerbit_data['telp']."</td>";    
