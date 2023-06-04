@@ -33,7 +33,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -146,10 +146,40 @@
       </div>
     </div>
 
-      <ul class="nav nav-sidebar mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="#" class="nav-link active">
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/home" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Home</p>
+          </a>
+      </ul>
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/catalog" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-table"></i>
+            <p>Catalog</p>
+          </a>
+      </ul>
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/publisher" class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-columns"></i>
+            <p>Publisher</p>
+          </a>
+      </ul>
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/author" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>Author</p>
+          </a>
+      </ul>
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/book" class="nav-link{{ request()->is('book') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-book"></i>
+            <p>Book</p>
+          </a>
+      </ul>
+      <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="/member" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+            <i class="nav-icon far fa-plus-square"></i>
+            <p>Member</p>
           </a>
       </ul>
 
