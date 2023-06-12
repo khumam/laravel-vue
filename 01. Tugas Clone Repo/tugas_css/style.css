@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 20%;
+  }
+
+  .image-phone{
+    flex: 50%;
+  }
+  
+  .login-box {
+    flex: 50%;
+    position: relative;
+    top: 20px;
+  }
+
+  .box-1{
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+
+  .box-2{
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .or{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  .horisontal-1, .horisontal-2 {
+    width: 100%;
+    
+  }
+
+  .login-fb{
+    margin-bottom: 20px;
+  }
+
+  input{
+    max-width: 90%;
+  }
+  
+  img {
+    width: 150px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0095f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .login-fb a {
+    color: #8e8e8e;
+    text-decoration: none;
+  }
+
+  .forgot-password a {
+    color: #00376b;
+    text-decoration: none;
+  }
+  
+  .signup-link {
+    color: #8e8e8e;
+  }
+  
+  .signup-link a {
+    color: #00376b;
+    text-decoration: none;
+  }
+
+  .footer{
+    padding: 10px;
+    text-align: center;
+  }
+
+  .footer a {
+    margin: 10px;
+    text-decoration: none;
+    color: #8e8e8e;
+    font-size: 12px;
+  }
+
+  .row-1, .row-2 {
+    margin: 10px;
+  }

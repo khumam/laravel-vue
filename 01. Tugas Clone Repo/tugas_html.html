@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Html</title>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+          <a href="#">Menu 1</a>
+          <a href="#">Menu 2</a>
+          <a href="#">Menu 3</a>
+          <a href="#">Menu 4</a>
+          <!-- for test merging branch -->
+          <a href="#">Menu 5</a>
+        </div>
+    </header>
+
+    <!-- main container -->
+    <main>
+        <div class="jumbotron">
+          <h1>Gambar Header</h1>
+        </div>
+      
+        <div class="main-container">
+          <div class="content">
+            <div class="title">
+                <h2>Title</h2>
+            </div>
+            <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, nostrum assumenda quod reiciendis quaerat obcaecati, illo laudantium sunt sint cumque consequatur nam ipsam id cupiditate est temporibus itaque? Eligendi officiis sapiente odit enim quisquam quod temporibus voluptates excepturi tenetur molestias quibusdam perspiciatis neque unde veritatis dolor ab cumque repellendus earum, animi a? Eligendi expedita soluta quis odit maiores neque! Doloremque, hic repellat deserunt, libero officia animi tempora earum dolore id ipsam nam alias. Inventore culpa accusamus rem vero tenetur voluptates harum distinctio dolorem fugiat, dolorum, et velit minima dignissimos sit adipisci explicabo officiis tempore dolor alias! Quibusdam numquam consequuntur fugit!.</p>
+          </div>
+          <!-- sidebar -->
+          <div class="sidebar">
+            <div class="box">
+                <h2>Sidebar</h2>
+            </div>
+          </div>
+        </div>
+    </main>
+
+  <!-- footer -->
+  <footer>
+      <div class="footer">
+        <h5>Footer.</h5>
+      </div>
+  </footer>
+</body>
+<style>
+    /* CSS styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #ffff;
+      color: #000000;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .navbar a {
+      color: #000000;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .jumbotron {
+      background-color: #fbddeb;
+      padding: 120px;
+      text-align: center;
+    }
+
+    .main-container {
+      display: flex;
+    }
+
+    .sidebar {
+      flex: 2;
+      padding: 30px;
+    }
+
+    .box {
+        width: 200px;
+        height: 200px;
+        background-color: #ababab;
+        color: #333;
+        text-align: center;
+        line-height: 200px;
+    }
+
+    .title{
+        max-width: 65px;
+        border-bottom: #333 2px solid;
+    }
+
+    .content {
+      flex: 3;
+      padding: 25px 10%;
+      background-color: #f9f9f9;
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1px;
+    }
+  </style>
+</html>
