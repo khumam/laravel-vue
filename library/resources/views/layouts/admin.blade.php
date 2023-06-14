@@ -153,31 +153,31 @@
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/catalog" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+          <a href="/catalogs" class="nav-link {{ request()->is('catalogs') ? 'active' : '' }}">
             <i class="nav-icon fas fa-table"></i>
             <p>Catalog</p>
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/publisher" class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+          <a href="/publishers" class="nav-link {{ request()->is('publishers') ? 'active' : '' }}">
             <i class="nav-icon fas fa-columns"></i>
             <p>Publisher</p>
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/author" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+          <a href="/authors" class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
             <i class="nav-icon fas fa-edit"></i>
             <p>Author</p>
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/book" class="nav-link{{ request()->is('book') ? 'active' : '' }}">
+          <a href="/books" class="nav-link{{ request()->is('books') ? 'active' : '' }}">
             <i class="nav-icon fas fa-book"></i>
             <p>Book</p>
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/member" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+          <a href="/members" class="nav-link {{ request()->is('members') ? 'active' : '' }}">
             <i class="nav-icon far fa-plus-square"></i>
             <p>Member</p>
           </a>

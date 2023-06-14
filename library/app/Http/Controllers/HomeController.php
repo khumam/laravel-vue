@@ -39,6 +39,8 @@ class HomeController extends Controller
 
         //return $authors;
 
+        return view('home');
+
         //data1
         $data1 = Member::select('*')
                     ->join('users', 'users.member_id', '=', 'members.id')
@@ -172,6 +174,6 @@ class HomeController extends Controller
                     ->get();
 
         return $data20; 
-        return view('home');
+        
     }
 }
