@@ -1,112 +1,75 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Waktu pembuatan: 02 Bulan Mei 2023 pada 11.55
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versi server:                 10.9.2-MariaDB - mariadb.org binary distribution
+-- OS Server:                    Win64
+-- HeidiSQL Versi:               12.1.0.6537
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Database: `apotek`
---
 
--- --------------------------------------------------------
+-- Membuang struktur basisdata untuk apotek
+CREATE DATABASE IF NOT EXISTS `apotek` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `apotek`;
 
---
--- Struktur dari tabel `obat`
---
+-- membuang struktur untuk table apotek.nota
+CREATE TABLE IF NOT EXISTS `nota` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `total_harga` int(12) DEFAULT 0,
+  `total_bayar` int(12) DEFAULT 0,
+  `total_kembalian` int(12) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `kode_nota` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kode_nota` (`kode_nota`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `obat` (
-  `id_obat` int(11) NOT NULL,
-  `nama_obat` char(225) NOT NULL,
-  `pembuat_obat` varchar(64) NOT NULL,
-  `stok_obat` int(11) NOT NULL,
-  `tanggal_kadaluwarsa` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Membuang data untuk tabel apotek.nota: ~0 rows (lebih kurang)
+DELETE FROM `nota`;
 
---
--- Dumping data untuk tabel `obat`
---
+-- membuang struktur untuk table apotek.obat
+CREATE TABLE IF NOT EXISTS `obat` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `nama_obat` varchar(50) DEFAULT NULL,
+  `produsen` varchar(50) DEFAULT NULL,
+  `expired` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `harga` int(12) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `obat` (`id_obat`, `nama_obat`, `pembuat_obat`, `stok_obat`, `tanggal_kadaluwarsa`) VALUES
-(1, 'obat pusing', 'balabalbalb', 100, '2023-06-30'),
-(2, 'obat batuk', 'aljdlkasjkla', 200, '2023-07-08');
+-- Membuang data untuk tabel apotek.obat: ~0 rows (lebih kurang)
+DELETE FROM `obat`;
 
--- --------------------------------------------------------
+-- membuang struktur untuk table apotek.transaksi
+CREATE TABLE IF NOT EXISTS `transaksi` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `id_obat` int(12) DEFAULT NULL,
+  `jumlah` int(12) DEFAULT NULL,
+  `kode_nota` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_obat` (`id_obat`),
+  KEY `fk_nota` (`kode_nota`),
+  CONSTRAINT `fk_nota` FOREIGN KEY (`kode_nota`) REFERENCES `nota` (`kode_nota`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_obat` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id`) ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Struktur dari tabel `transaksi`
---
+-- Membuang data untuk tabel apotek.transaksi: ~0 rows (lebih kurang)
+DELETE FROM `transaksi`;
 
-CREATE TABLE `transaksi` (
-  `id_transaksi` int(11) NOT NULL,
-  `id_obat` int(11) NOT NULL,
-  `jumlah_transaksi` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `id_obat`, `jumlah_transaksi`) VALUES
-(1, 1, 2),
-(2, 2, 5);
-
---
--- Indexes for dumped tables
---
-
---
--- Indeks untuk tabel `obat`
---
-ALTER TABLE `obat`
-  ADD PRIMARY KEY (`id_obat`);
-
---
--- Indeks untuk tabel `transaksi`
---
-ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `fk_obat` (`id_obat`);
-
---
--- AUTO_INCREMENT untuk tabel yang dibuang
---
-
---
--- AUTO_INCREMENT untuk tabel `obat`
---
-ALTER TABLE `obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `transaksi`
---
-ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
---
--- Ketidakleluasaan untuk tabel `transaksi`
---
-ALTER TABLE `transaksi`
-  ADD CONSTRAINT `fk_obat` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`);
-COMMIT;
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
