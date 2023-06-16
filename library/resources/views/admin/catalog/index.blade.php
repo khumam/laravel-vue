@@ -21,7 +21,8 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                Data Catalogs
+                <h5>Data Catalogs</h5>
+                <a href="{{route('catalog.create')}}" class = "btn btn-primary mt-2">Create Catalog</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -32,6 +33,7 @@
                     <th>Catalog</th>
                     <th>Total Books</th>
                     <th>Created at</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -41,6 +43,11 @@
                     <td>{{ $catalog -> name }}</td>
                     <td>{{ count($catalog -> books) }}</td>
                     <td>{{ date('d/m/y',strtotime($catalog -> created_at)) }}</td>
+                    <td><form action="{{route('catalog.destroy', $catalog->id)}}" method="post">
+                        @csrf
+                        <a href="{{route('catalog.edit', $catalog->id)}}" class = "btn btn-primary me-2">Edit</a>
+                        <button class = "btn btn-danger" onClick="return confirm('Are you sure for delete ?')">Delete</button>
+                    </form></td>
                   </tr>
                   @endforeach
                   </tbody>

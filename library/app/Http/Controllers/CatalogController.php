@@ -23,7 +23,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.catalog.create');
     }
 
     /**
@@ -31,7 +31,13 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64'
+        ]);
+        $catalog = new Catalog;
+        $catalog -> name = $request -> name;
+        $catalog -> save();
+        return redirect('/catalogs');
     }
 
     /**
@@ -45,24 +51,33 @@ class CatalogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Catalog $catalog)
+    public function edit($id)
     {
-        //
+        $catalog = Catalog::find($id);
+        return view('admin.catalog.edit', compact('catalog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Catalog $catalog)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64'
+        ]);
+        $catalog = Catalog::find($id);
+        $catalog -> name = $request -> name;
+        $catalog -> update();
+        return redirect('/catalogs');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Catalog $catalog)
+    public function destroy($id)
     {
-        //
+        $catalog = Catalog::find($id);
+        $catalog -> delete();
+        return redirect('/catalogs');
     }
 }
