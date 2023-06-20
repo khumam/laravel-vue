@@ -31,12 +31,5 @@ Route::post('/catalogs/update/{id}', [App\Http\Controllers\CatalogController::cl
 Route::get('/catalogs/edit/{id}', [App\Http\Controllers\CatalogController::class, 'edit'])->name('catalog.edit');
 Route::post('/catalogs/delete/{id}', [App\Http\Controllers\CatalogController::class, 'destroy'])->name('catalog.destroy');
 
-Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
-Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create'])->name('publisher.create');
-Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
-Route::get('/publishers/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
-Route::post('/publishers/update/{id}', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
-Route::get('/publishers/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
-Route::post('/publishers/delete/{id}', [App\Http\Controllers\PublisherController::class, 'destroy'])->name('publisher.destroy');
-
 Route::resource('/authors',App\Http\Controllers\AuthorController::class);
+Route::resource('/publishers',App\Http\Controllers\PublisherController::class);

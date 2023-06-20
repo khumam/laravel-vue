@@ -1,8 +1,13 @@
 @extends('layouts.admin')
 
+@section('css')
+
+@endsection
+
 @section('content')
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div id="controller">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -22,7 +27,7 @@
             <div class="card">
               <div class="card-header">
                 <h5>Data Publisher</h5>
-                <a href="{{route('publisher.create')}}" class = "btn btn-primary mt-2">Input Publisher</a>
+                <a href="#" @click="addData()" class = "btn btn-sm btn-primary pull-right">Create New Publisher</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -47,11 +52,10 @@
                     <td>{{ $publisher -> address }}</td>
                     <td>{{ $publisher -> phone_number }}</td>
                     <td>{{ count($publisher -> books) }}</td>
-                    <td><form action="{{route('publisher.destroy', $publisher->id)}}" method="post">
-                        @csrf
-                        <a href="{{route('publisher.edit', $publisher->id)}}" class = "btn btn-primary me-2">Edit</a>
-                        <button class = "btn btn-danger" onClick="return confirm('Are you sure for delete ?')">Delete</button>
-                    </form></td>
+                    <td class = "text-right">
+                          <a href="#" @click = "editData({{$publisher}})" class = "btn btn-warning btn-sm">Edit</a>
+                          <a href="#" @click = "deleteData({{$publisher->id}})" class = "btn btn-danger btn-sm">Delete</a>
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -60,4 +64,89 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+
+            <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form method="post" :action="actionUrl" autocomplete="off">
+                <div class="modal-header">
+                  <h4 class="modal-title">Publisher</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div> 
+                <div class="modal-body">
+                @csrf
+                <input type="hidden" name="_method" value="PUT" v-if="editStatus">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Name" :value = "data.name" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Enter Email" :value = "data.email" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" class="form-control" name="phone_number" placeholder="Enter Phone Number" :value = "data.phone_number" required="">
+                  </div>
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" name="address" placeholder="Enter Address" :value = "data.address" required="">
+                  </div>
+                </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+</div>
+@endsection
+
+@section('js')
+
+  <script type="text/javascript">
+    var controller = new Vue({
+        el: '#controller',
+        data:{
+            data : {},
+            actionUrl : '{{url('publishers')}}',
+            editStatus : false,
+        },
+        mounted: function(){
+
+        },
+        methods:{
+          addData(){
+            this.data = {};
+            this.actionUrl = '{{url('publishers')}}';
+            this.editStatus = false;
+            $('#modal-default').modal();
+          },
+          editData(data){
+            this.data = data;
+            this.editStatus = true;
+            this.actionUrl = '{{url('publishers')}}'+'/'+data.id;
+            $('#modal-default').modal();
+          },
+          deleteData(id){
+            this.actionUrl = '{{url('publishers')}}'+'/'+id;
+            if(confirm("Are You Sure ?")){
+              axios.post(this.actionUrl, {_method:'DELETE'}).then(response => {
+                location.reload();
+              });
+            }
+          }
+        }
+
+        }
+    )
+</script>
+
 @endsection
