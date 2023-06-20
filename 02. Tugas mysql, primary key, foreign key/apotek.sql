@@ -19,6 +19,21 @@
 CREATE DATABASE IF NOT EXISTS `apotek` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `apotek`;
 
+-- membuang struktur untuk table apotek.detail_obat
+CREATE TABLE IF NOT EXISTS `detail_obat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `obat_id` int(11) DEFAULT NULL,
+  `kandungan` text DEFAULT NULL,
+  `efek_samping` text DEFAULT NULL,
+  `jenis_obat` enum('tablet','sirup','kain','salep') DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_obat_id` (`obat_id`),
+  CONSTRAINT `fk_obat_id` FOREIGN KEY (`obat_id`) REFERENCES `obat` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Membuang data untuk tabel apotek.detail_obat: ~0 rows (lebih kurang)
+DELETE FROM `detail_obat`;
+
 -- membuang struktur untuk table apotek.nota
 CREATE TABLE IF NOT EXISTS `nota` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
