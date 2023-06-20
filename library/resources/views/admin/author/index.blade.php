@@ -77,7 +77,7 @@
                 </div> 
                 <div class="modal-body">
                 @csrf
-                <input type="hidden" name="__method" value="PUT" v-if="editStatus">
+                <input type="hidden" name="_method" value="PUT" v-if="editStatus">
                   <div class="form-group">
                     <label>Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Enter Name" :value = "data.name" required="">
@@ -125,18 +125,18 @@
         methods:{
           addData(){
             this.data = {};
-            this.actionURL = '{{url('authors')}}';
+            this.actionUrl = '{{url('authors')}}';
             this.editStatus = false;
             $('#modal-default').modal();
           },
           editData(data){
             this.data = data;
             this.editStatus = true;
-            this.actionURL = '{{url('authors')}}'+'/'+data.id;
+            this.actionUrl = '{{url('authors')}}'+'/'+data.id;
             $('#modal-default').modal();
           },
           deleteData(id){
-            this.actionURL = '{{url('authors')}}'+'/'+id;
+            this.actionUrl = '{{url('authors')}}'+'/'+id;
             if(confirm("Are You Sure ?")){
               axios.post(this.actionUrl, {_method:'DELETE'}).then(response => {
                 location.reload();
