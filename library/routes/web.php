@@ -20,7 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/authors', [App\Http\Controllers\AuthorController::class, 'index']);
 Route::get('/books', [App\Http\Controllers\BookController::class, 'index']);
 Route::get('/members', [App\Http\Controllers\MemberController::class, 'index']);
 
@@ -39,3 +38,5 @@ Route::get('/publishers/edit/{id}', [App\Http\Controllers\PublisherController::c
 Route::post('/publishers/update/{id}', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
 Route::get('/publishers/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
 Route::post('/publishers/delete/{id}', [App\Http\Controllers\PublisherController::class, 'destroy'])->name('publisher.destroy');
+
+Route::resource('/authors',App\Http\Controllers\AuthorController::class);

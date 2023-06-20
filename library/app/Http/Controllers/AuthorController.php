@@ -10,6 +10,12 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
 
@@ -31,7 +37,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64',
+            'email' => 'required',
+            'phone_number' => 'required|max:15',
+            'address' => 'required|string',
+        ]);
+        
+        Author::create($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -55,7 +69,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64',
+            'email' => 'required',
+            'phone_number' => 'required|max:15',
+            'address' => 'required|string',
+        ]);
+        
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -63,6 +85,6 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
     }
 }
