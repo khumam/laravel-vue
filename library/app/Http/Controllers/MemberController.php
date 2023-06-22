@@ -10,9 +10,20 @@ class MemberController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('admin.member.index');
+    }
+
+    public function api(){
+        $members = Member::all();
+        $datatables = datatables()->of($members)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -28,7 +39,16 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64',
+            'email' => 'required',
+            'gender' => 'required|string|max:1',
+            'phone_number' => 'required|max:15',
+            'address' => 'required|string',
+        ]);
+        
+        Member::create($request->all());
+        return redirect('members');
     }
 
     /**
@@ -52,7 +72,16 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:64',
+            'email' => 'required',
+            'gender' => 'required|string|max:1',
+            'phone_number' => 'required|max:15',
+            'address' => 'required|string',
+        ]);
+        
+        $member->update($request->all());
+        return redirect('members');
     }
 
     /**
@@ -60,6 +89,6 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
     }
 }
