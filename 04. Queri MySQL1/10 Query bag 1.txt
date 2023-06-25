@@ -1,0 +1,10 @@
+1. SELECT * FROM `obat`;
+2. SELECT * FROM `detail_obat`;
+3. SELECT * FROM `nota`;
+4. SELECT * FROM `transaksi`;
+5. SELECT nama_obat, produsen, stok_obat FROM `obat`;
+6. SELECT id, nama_obat, produsen, stok_obat, expired FROM `obat` WHERE id = 3;
+7. SELECT total_harga, total_bayar, total_kembalian FROM `nota` WHERE kode_nota = 'asd235';
+8. SELECT * FROM `obat` WHERE nama_obat = 'Obat Radang';
+9. SELECT * FROM `obat` WHERE nama_obat LIKE '%telinga%';
+10. SELECT * FROM `detail_obat` WHERE obat_id = 3;
