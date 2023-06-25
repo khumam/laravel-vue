@@ -1,0 +1,5 @@
+UPDATE obat SET stok_obat = 10 WHERE id = 3;
+UPDATE obat SET produsen = 'Kalbe' WHERE id = '6';
+UPDATE obat SET nama_obat = 'Obat Keseleo' WHERE id = 8;
+DELETE FROM transaksi WHERE kode_nota = 'asd242';
+DELETE FROM transaksi WHERE id_obat = 8;
