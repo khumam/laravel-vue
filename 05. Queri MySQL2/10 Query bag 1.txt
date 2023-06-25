@@ -1,0 +1,10 @@
+1. SELECT * FROM `obat` ORDER BY nama_obat DESC;
+2. SELECT * FROM obat ORDER BY stok_obat ASC;
+3. SELECT * FROM obat WHERE produsen LIKE '%farma%';
+4. SELECT nama_obat, SUM(stok_obat) AS total FROM obat GROUP BY nama_obat;
+5. SELECT nama_obat,produsen, SUM(stok_obat) AS total FROM obat GROUP BY nama_obat ORDER BY produsen DESC;
+6. SELECT produsen, SUM(stok_obat) AS total FROM obat WHERE stok_obat < 100 GROUP BY produsen;
+7. SELECT produsen, SUM(stok_obat) AS total FROM obat WHERE stok_obat < 100 GROUP BY produsen HAVING total < 105;
+8. SELECT produsen, SUM(stok_obat) AS total FROM obat WHERE stok_obat < 100 GROUP BY produsen ORDER BY produsen ASC;
+9. SELECT *, SUM(stok_obat) AS total FROM `obat` WHERE nama_obat LIKE '%telinga%';
+10. SELECT * FROM `obat` WHERE stok_obat >= 20 AND obat.stok_obat <= 50 ORDER BY stok_obat DESC;
