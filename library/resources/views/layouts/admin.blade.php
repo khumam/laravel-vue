@@ -172,7 +172,7 @@
           </a>
       </ul>
       <ul class="nav nav-sidebar nav-pills mt-2 flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="/books" class="nav-link{{ request()->is('books') ? 'active' : '' }}">
+          <a href="/books" class="nav-link {{ request()->is('books') ? 'active' : '' }}">
             <i class="nav-icon fas fa-book"></i>
             <p>Book</p>
           </a>
