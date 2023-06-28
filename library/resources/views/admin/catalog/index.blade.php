@@ -42,7 +42,7 @@
                     <td>{{ $key+1 }}</td>
                     <td>{{ $catalog -> name }}</td>
                     <td>{{ count($catalog -> books) }}</td>
-                    <td>{{ date('d/m/y',strtotime($catalog -> created_at)) }}</td>
+                    <td>{{ dateformat($catalog -> created_at) }}</td>
                     <td><form action="{{route('catalog.destroy', $catalog->id)}}" method="post">
                         @csrf
                         <a href="{{route('catalog.edit', $catalog->id)}}" class = "btn btn-primary me-2">Edit</a>
