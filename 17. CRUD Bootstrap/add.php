@@ -31,7 +31,7 @@
 					</tr>
 					<tr> 
 						<td>Tahun</td>
-						<td><input required type="text" name="tahun"></td>
+						<td><input required type="number" name="tahun"></td>
 					</tr>
 					<tr> 
 						<td>Penerbit</td>
@@ -71,11 +71,11 @@
 					</tr>
 					<tr> 
 						<td>Qty Stok</td>
-						<td><input required type="text" name="qty_stok"></td>
+						<td><input required type="number" name="qty_stok"></td>
 					</tr>
 					<tr> 
 						<td>Harga Pinjam</td>
-						<td><input required type="text" name="harga_pinjam"></td>
+						<td><input required type="number" name="harga_pinjam"></td>
 					</tr>
 					<tr> 
 						<td></td>
