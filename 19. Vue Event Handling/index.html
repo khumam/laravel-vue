@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Event</title>
+</head>
+<body>
+    <div id="example-1">
+        <button v-on:click="counter++">Add 1</button>
+        <button v-on:click="counter--">Minus 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+    </div>
+
+    <div id="example-2">
+        <button v-on:click="greet">Greet</button>
+    </div>
+    <br>
+    <div id="example-3">
+        <button v-on:click="say('Hello World ')">Say Hello</button>
+        <br>
+        <br>
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+          </button>
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+<script type="text/javascript">
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+                counter: 0
+                }
+        })
+
+</script>
+
+<script type="text/javascript">
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+                name: 'Vue.js'
+                },
+  // define methods under the `methods` object
+    methods: {
+            greet: function (event) {
+            alert('Hello ' + this.name + '!')
+            if (event) {
+                console.log(event.target);
+                 alert(event.target.tagName)
+      }
+    }
+  }
+})
+</script>
+
+<script type="text/javascript">
+    new Vue({
+    el: '#example-3',
+    methods: {
+        say: function (msg) {
+            alert(msg)
+        },
+        warn: function (message, event) {
+            console.log(event);
+            // now we have access to the native event
+            if (event) {
+            event.preventDefault()
+            }
+            alert(message)
+        }
+  }
+})    
+
+</script>
