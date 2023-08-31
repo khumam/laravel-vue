@@ -12,7 +12,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Book' 
+
+        ];
+        return view('book', $data);
     }
 
     /**

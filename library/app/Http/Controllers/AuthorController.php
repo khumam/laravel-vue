@@ -12,7 +12,11 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Author' 
+
+        ];
+        return view('author', $data);
     }
 
     /**

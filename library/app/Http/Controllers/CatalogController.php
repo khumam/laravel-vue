@@ -12,7 +12,11 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Catalog' 
+
+        ];
+        return view('catalog', $data);
     }
 
     /**

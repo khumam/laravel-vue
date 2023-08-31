@@ -1,6 +1,14 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PublisherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +27,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+Route::get('/author', [AuthorController::class, 'index'])->name('author');
+Route::get('/book', [BookController::class, 'index'])->name('book');
+Route::get('/member', [MemberController::class, 'index'])->name('member');
+Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher');

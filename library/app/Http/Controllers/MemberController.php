@@ -12,7 +12,11 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Member' 
+
+        ];
+        return view('member', $data);
     }
 
     /**

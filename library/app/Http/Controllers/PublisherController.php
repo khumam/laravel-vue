@@ -12,7 +12,11 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Publisher' 
+
+        ];
+        return view('publisher', $data);
     }
 
     /**
