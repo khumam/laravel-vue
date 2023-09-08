@@ -27,7 +27,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::resource('home',HomeController::class);
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/author', [AuthorController::class, 'index'])->name('author');
 Route::get('/book', [BookController::class, 'index'])->name('book');

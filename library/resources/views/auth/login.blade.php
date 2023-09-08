@@ -4,7 +4,7 @@
 <main class="py-4">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('home') }}"><b>Laravel</b></a>
+            <a href="{{ route('home.index') }}"><b>Laravel</b></a>
         </div>
     
         <div class="card">

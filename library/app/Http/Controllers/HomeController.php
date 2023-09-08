@@ -27,6 +27,6 @@ class HomeController extends Controller
             'title' => 'Dashboard' 
 
         ];
-        return view('home', $data);
+        return view('home', compact('data'));
     }
 }
