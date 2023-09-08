@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Member;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -16,6 +18,12 @@ class MemberController extends Controller
             'title' => 'Member' 
 
         ];
+
+        // $books = Book::with('publisher')->get();
+        $publishers = Publisher::with('books')->get();
+        
+        return $publishers;
+
         return view('member', $data);
     }
 
