@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Publisher;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -19,10 +20,16 @@ class MemberController extends Controller
 
         ];
 
-        // $books = Book::with('publisher')->get();
-        $publishers = Publisher::with('books')->get();
+        // $books = Book::all();
+        // $publishers = Publisher::with('books')->get();
+
+        $query1 = User::selectRaw('*, users.id as user_id, users.name as user_name')->join('members', 'users.member_id', '=', 'members.id')->get();
+
+        $query2 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->where('remember_token','!=', null)->get();
+
+        $query3 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->orderBy('user_name', 'desc')->get();
         
-        return $publishers;
+        return $query3;
 
         return view('member', $data);
     }
