@@ -12,11 +12,11 @@ class CatalogController extends Controller
      */
     public function index()
     {
+        $catalogs = Catalog::with('books')->get();
         $data = [
             'title' => 'Catalog' 
-
         ];
-        return view('catalog', $data);
+        return view('catalog', compact('data', 'catalogs'));
     }
 
     /**
