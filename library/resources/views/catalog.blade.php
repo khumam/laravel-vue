@@ -24,50 +24,73 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-md-6">
               <h1 class="m-0">{{ $data['title'] }}</h1>
+            </div>
+            <div class="col-md-6">
+              <form action="{{ route('catalog') }}">
+                <div class="input-group">
+                    <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" name="search" value="{{ request('search') ?? '' }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-lg btn-default btn-outline-secondary" style="border-color: rgb(222, 226, 230);">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
             </div><!-- /.col -->
           </div><!-- /.row -->
           <div class="row">
             <div class="col">
+              @if (count($catalogs) === 0)
                 <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">DataTable with minimal features & hover style</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                      <table id="example2" class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>Name</th>
-                          <th>Created At</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($catalogs as $key => $catalog)
-                            <tr>
-                              <td>{{ $key + 1 }}</td>
-                              <td>
-                                {{ $catalog->name }}
-                              </td>
-                              <td>{{ date("j F Y, H:i:s", strtotime($catalog->created_at))}}</td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                        {{-- <tfoot>
-                        <tr>
-                          <th>Rendering engine</th>
-                          <th>Browser</th>
-                          <th>Platform(s)</th>
-                          <th>Engine version</th>
-                          <th>CSS grade</th>
-                        </tr>
-                        </tfoot> --}}
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
+                  <div class="card-body">
+                    <p><strong>Data not found.</strong></p>
                   </div>
+                </div>
+              @else
+              <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($catalogs as $key => $catalog)
+                          <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>
+                              {{ $catalog->name }}
+                            </td>
+                            <td>{{ date("j F Y, H:i:s", strtotime($catalog->created_at))}}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                      {{-- <tfoot>
+                      <tr>
+                        <th>Rendering engine</th>
+                        <th>Browser</th>
+                        <th>Platform(s)</th>
+                        <th>Engine version</th>
+                        <th>CSS grade</th>
+                      </tr>
+                      </tfoot> --}}
+                    </table>
+                    <div class="pagination">
+                      {{ $catalogs->links() }}
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              @endif
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -114,11 +137,11 @@
         //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-          "paging": true,
+          "paging": false,
           "lengthChange": false,
           "searching": false,
           "ordering": true,
-          "info": true,
+          "info": false,
           "autoWidth": false,
           "responsive": true,
         });

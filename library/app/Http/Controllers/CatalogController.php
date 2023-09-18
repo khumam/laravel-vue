@@ -10,9 +10,10 @@ class CatalogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $catalogs = Catalog::with('books')->get();
+        
+        $catalogs = Catalog::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
         $data = [
             'title' => 'Catalog' 
         ];
