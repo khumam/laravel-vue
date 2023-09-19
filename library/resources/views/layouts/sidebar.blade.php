@@ -13,7 +13,7 @@
           <img src="{{ asset ('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -43,7 +43,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('catalog') }}" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+            <a href="{{ route('catalog.index') }}" class="nav-link {{ request()->is('catalog') || request()->is('catalog/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Catalog

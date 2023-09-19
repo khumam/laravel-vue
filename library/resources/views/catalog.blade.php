@@ -28,7 +28,7 @@
               <h1 class="m-0">{{ $data['title'] }}</h1>
             </div>
             <div class="col-md-6">
-              <form action="{{ route('catalog') }}">
+              <form action="{{ route('catalog.index') }}">
                 <div class="input-group">
                     <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" name="search" value="{{ request('search') ?? '' }}">
                     <div class="input-group-append">
@@ -51,7 +51,14 @@
               @else
               <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                    <div class="row">
+                      <div class="col-md-6"><h3 class="card-title">DataTable with minimal features & hover style</h3></div>
+                      
+                      <div class="col-md-6"><a href="{{ route('catalog.create') }}" type="button" class="btn btn-primary float-right">
+                        <i class="fas fa-plus"></i><span> Add Catalog</span>
+                      </a></div>
+                    </div>
+                    
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
@@ -61,6 +68,7 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Created At</th>
+                        <th>Action</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -71,6 +79,22 @@
                               {{ $catalog->name }}
                             </td>
                             <td>{{ date("j F Y, H:i:s", strtotime($catalog->created_at))}}</td>
+                            <td>
+                              <div class="row">
+                                <div class="col">
+                                  <a href="{{ route('catalog.edit', ['catalog' => $catalog->id]) }}" type="button" class="btn btn-outline-warning">
+                                    <i class="fas fa-pen"></i><span> Edit</span>
+                                  </a>
+                                  <form action="{{ route('catalog.destroy', ['catalog' => $catalog->id]) }}" method="post" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">
+                                        <i class="fas fa-trash"></i><span> Delete</span>
+                                    </button>
+                                </form>
+                                </div>
+                              </div>
+                            </td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -140,7 +164,7 @@
           "paging": false,
           "lengthChange": false,
           "searching": false,
-          "ordering": true,
+          "ordering": false,
           "info": false,
           "autoWidth": false,
           "responsive": true,

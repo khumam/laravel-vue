@@ -28,8 +28,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('home',HomeController::class);
+Route::resource('catalog',CatalogController::class);
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+// Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/author', [AuthorController::class, 'index'])->name('author');
 Route::get('/book', [BookController::class, 'index'])->name('book');
 Route::get('/member', [MemberController::class, 'index'])->name('member');
