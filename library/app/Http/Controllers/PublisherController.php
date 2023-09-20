@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class PublisherController extends Controller
 {
@@ -25,8 +27,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        // abort(404);
-        // return view('admin.form_publisher');
+        return view('admin.form_publisher');
     }
 
     /**
@@ -34,7 +35,25 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $valid = $request->validate([
+                "name" => 'required|max:255',
+                "email"=> 'required|string|email|max:255|unique:publishers',
+                "phone_number"=> 'required|numeric|digits_between:1,13',
+                "address"=> 'required'
+            ]);
+
+            Publisher::create($valid);
+            return redirect()->route('publisher.index');
+    
+            // Lakukan tindakan jika validasi berhasil
+        } catch (ValidationException $e) {
+
+            // dd($e);
+            // Tangani validasi yang gagal di sini
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+        
     }
 
     /**
@@ -50,7 +69,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('admin.form_publisher', compact('publisher'));
     }
 
     /**
@@ -58,7 +77,25 @@ class PublisherController extends Controller
     */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        try {
+            $valid = $request->validate([
+                "name" => 'required|max:255',
+                "email"=> ['required', 'string', 'email', 'max:255', Rule::unique('publishers')->ignore($publisher->id)],
+                "phone_number"=> 'required|numeric|digits_between:1,13',
+                "address"=> 'required'
+            ]);
+
+            $publisher->update($valid);
+            return redirect()->route('publisher.index');
+    
+            // Lakukan tindakan jika validasi berhasil
+        } catch (ValidationException $e) {
+
+            // dd($e);
+            // Tangani validasi yang gagal di sini
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+        
     }
 
     /**
@@ -66,6 +103,7 @@ class PublisherController extends Controller
     */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+        return redirect()->route('publisher.index');
     }
 }

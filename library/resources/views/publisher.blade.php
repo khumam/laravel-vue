@@ -103,12 +103,12 @@
                                 <td>
                                   <div class="row">
                                     <div class="col-md-6">
-                                      <a href="{{ route('catalog.edit', ['catalog' => $publisher->id]) }}" type="button" class="btn btn-outline-warning">
+                                      <a href="{{ route('publisher.edit', ['publisher' => $publisher->id]) }}" type="button" class="btn btn-outline-warning">
                                         <i class="fas fa-pen"></i><span> Edit</span>
                                       </a>
                                     </div>
                                     <div class="col-md-6">
-                                      <form action="{{ route('catalog.destroy', ['catalog' => $publisher->id]) }}" method="post" class="d-inline">
+                                      <form action="{{ route('publisher.destroy', ['publisher' => $publisher->id]) }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">
