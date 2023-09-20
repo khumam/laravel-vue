@@ -10,13 +10,14 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $authors = Author::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
         $data = [
             'title' => 'Author' 
 
         ];
-        return view('author', $data);
+        return view('author', compact('data', 'authors'));
     }
 
     /**

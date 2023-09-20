@@ -20,4 +20,10 @@ class Author extends Model
         
         return $this->hasMany('App\Models\Book', 'author_id');
     }
+
+    public function scopeFilter($query, array $filters) {
+        $query->when($filters['request']['search'] ?? false, function ($query, $value) {
+            return $query->where('name','like', '%'. $value .'%');
+        });
+    }
 }

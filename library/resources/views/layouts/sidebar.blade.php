@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('author') }}" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+            <a href="{{ route('author.index') }}" class="nav-link {{ request()->is('author') || request()->is('author/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Author
