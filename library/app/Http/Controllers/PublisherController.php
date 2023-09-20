@@ -10,13 +10,14 @@ class PublisherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $publishers = Publisher::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
         $data = [
             'title' => 'Publisher' 
 
         ];
-        return view('publisher', $data);
+        return view('publisher', compact('data', 'publishers'));
     }
 
     /**
@@ -24,7 +25,8 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        // abort(404);
+        // return view('admin.form_publisher');
     }
 
     /**

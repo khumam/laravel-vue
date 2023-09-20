@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
+use App\Models\Publisher;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('home',HomeController::class);
-Route::resource('catalog',CatalogController::class);
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
-Route::get('/author', [AuthorController::class, 'index'])->name('author');
-Route::get('/book', [BookController::class, 'index'])->name('book');
-Route::get('/member', [MemberController::class, 'index'])->name('member');
-Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher');
+Route::middleware('auth')->group(function () {
+
+    Route::resource('home',HomeController::class);
+    Route::resource('catalog',CatalogController::class);
+    Route::resource('publisher',PublisherController::class);
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+    Route::get('/author', [AuthorController::class, 'index'])->name('author');
+    Route::get('/book', [BookController::class, 'index'])->name('book');
+    Route::get('/member', [MemberController::class, 'index'])->name('member');
+    // Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher');
+
+});

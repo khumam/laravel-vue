@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('publisher') }}" class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+            <a href="{{ route('publisher.index') }}" class="nav-link {{ request()->is('publisher') || request()->is('publisher/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Publisher
