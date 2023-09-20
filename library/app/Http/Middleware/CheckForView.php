@@ -16,14 +16,17 @@ class CheckForView
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
+        // dd($request->getMethod());
         $content = $response->getContent();
         // Cek apakah respons adalah tampilan
-        if ($this->isViewResponse($response) && !empty($content)) {
-            return $response;
+        if ($this->isViewResponse($response)) {
+            if (empty($content) && strtolower($request->getMethod()) == 'get'){
+                // Jika tidak ada page, kirim respons 404
+                abort(404);
+            }
         }
 
-        // Jika tidak, kirim respons 404
-        abort(404);
+        return $response;
         // return $next($request);
     }
 
