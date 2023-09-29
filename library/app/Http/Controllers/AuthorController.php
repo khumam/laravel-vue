@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorEditRequest;
+use App\Http\Requests\AuthorStoreRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -31,9 +33,11 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AuthorStoreRequest $request)
     {
-        //
+
+        Author::create($request->all());
+        return redirect()->route('author.index');
     }
 
     /**
@@ -41,7 +45,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        
     }
 
     /**
@@ -55,9 +59,10 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(AuthorEditRequest $request, Author $author)
     {
-        //
+        $author->update($request->all());
+        return redirect()->route('author.index');
     }
 
     /**
@@ -65,6 +70,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->books()->delete();
+        $author->delete();
+        // return redirect()->route('author.index');
     }
 }

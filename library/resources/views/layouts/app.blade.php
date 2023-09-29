@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset ('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset ('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/app.css') }}">
+
     @stack('css');
 
     <!-- Scripts -->
@@ -93,6 +95,10 @@
 <script src="{{ asset ('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset ('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+{{-- vue --}}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
   <!-- Code injected by live-server -->
   <script>
     // <![CDATA[  <-- For SVG support
@@ -131,6 +137,7 @@
     }
     // ]]>
 </script>
+
 @stack('js');
 </body>
 </html>
