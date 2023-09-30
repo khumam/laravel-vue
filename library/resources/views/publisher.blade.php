@@ -27,7 +27,7 @@
             <div class="col-md-6">
               <h1 class="m-0">{{ $data['title'] }}</h1>
             </div>
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <form action="{{ route('publisher.index') }}">
                 <div class="input-group">
                     <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" name="search" value="{{ request('search') ?? '' }}">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </form>
-            </div>
+            </div> --}}
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -104,7 +104,8 @@
                                   <div class="row">
                                     <div class="col-md-6">
                                       <a href="{{ route('publisher.edit', ['publisher' => $publisher->id]) }}" type="button" class="btn btn-outline-warning">
-                                        <i class="fas fa-pen"></i><span> Edit</span>
+                                        <i class="fas fa-pen"></i>
+                                        {{-- <span> Edit</span> --}}
                                       </a>
                                     </div>
                                     <div class="col-md-6">
@@ -112,7 +113,8 @@
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">
-                                            <i class="fas fa-trash"></i><span> Delete</span>
+                                            <i class="fas fa-trash"></i>
+                                            {{-- <span> Delete</span> --}}
                                         </button>
                                     </form>
                                     </div>
@@ -131,9 +133,9 @@
                           </tr>
                           </tfoot> --}}
                         </table>
-                        <div class="pagination">
+                        {{-- <div class="pagination">
                           {{ $publishers->links() }}
-                        </div>
+                        </div> --}}
                       </div>
                       <!-- /.card-body -->
                   </div>
@@ -169,3 +171,19 @@
   </div>
 
 @endsection
+
+@push('js')
+  <script>
+    $(function () {
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
+@endpush

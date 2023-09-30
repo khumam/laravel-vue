@@ -14,7 +14,7 @@ class PublisherController extends Controller
      */
     public function index(Request $request)
     {
-        $publishers = Publisher::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
+        $publishers = Publisher::with('books')->latest()->get();
         $data = [
             'title' => 'Publisher' 
 
