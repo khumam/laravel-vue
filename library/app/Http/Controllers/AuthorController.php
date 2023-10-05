@@ -12,14 +12,24 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function api(Request $request)
+    {
+        $authors = Author::with('books')->orderBy('id', 'desc')->get();
+        $datatables = datatables()->of($authors)->addIndexColumn()->editColumn('created_at', function(Author $author) {
+            return date("j F Y, H:i:s", strtotime($author->created_at));
+        })->make(true);
+        return $datatables;
+    }
+
     public function index(Request $request)
     {
-        $authors = Author::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
+        // $authors = Author::with('books')->latest()->filter(compact('request'))->paginate(10)->withQueryString();
+        
         $data = [
             'title' => 'Author' 
 
         ];
-        return view('author', compact('data', 'authors'));
+        return view('author', compact('data'));
     }
 
     /**

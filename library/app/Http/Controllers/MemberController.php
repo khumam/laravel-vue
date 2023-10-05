@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\MemberEditRequest;
+use App\Http\Requests\MemberStoreRequest;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function api(Request $request)
+    {
+        $members = Member::orderBy('id', 'desc')->get();
+        $datatables = datatables()->of($members)->addIndexColumn()->editColumn('created_at', function(Member $member) {
+            return date("j F Y, H:i:s", strtotime($member->created_at));
+        })->make(true);
+        return $datatables;
+    }
+
     public function index()
     {
         $data = [
@@ -23,15 +36,14 @@ class MemberController extends Controller
         // $books = Book::all();
         // $publishers = Publisher::with('books')->get();
 
-        $query1 = User::selectRaw('*, users.id as user_id, users.name as user_name')->join('members', 'users.member_id', '=', 'members.id')->get();
+        // $query1 = User::selectRaw('*, users.id as user_id, users.name as user_name')->join('members', 'users.member_id', '=', 'members.id')->get();
 
-        $query2 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->where('remember_token','!=', null)->get();
+        // $query2 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->where('remember_token','!=', null)->get();
 
-        $query3 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->orderBy('user_name', 'desc')->get();
+        // $query3 = User::selectRaw('*, users.id as user_id, users.name as user_name')->leftJoin('members', 'users.member_id', '=', 'members.id')->orderBy('user_name', 'desc')->get();
         
-        return $query3;
-
-        return view('member', $data);
+        // return $query3;
+        return view('member', compact('data'));
     }
 
     /**
@@ -45,9 +57,41 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MemberStoreRequest $request)
     {
-        //
+        
+        DB::transaction(function () use ($request) {
+            try {
+                $data = $request->all();
+
+                $user = new User([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password'])
+                ]);
+            
+                $member = new Member([
+                    'name' => $data['name'],
+                    'gender' => $data['gender'],
+                    'phone_number' => $data['phone_number'],
+                    'address' => $data['address'],
+                    'email' => $data['email'],
+                ]);
+            
+                // Simpan User dan Member dalam transaksi
+                $member->save();
+                $member->user()->save($user);
+            
+                // Jika semuanya berhasil, commit transaksi
+                DB::commit();
+            } catch (\Exception $e) {
+                // Jika terjadi kesalahan, rollback transaksi
+                DB::rollback();
+                // Handle kesalahan sesuai kebutuhan Anda
+            }
+        });
+        // Member::create($request->all());
+        return redirect()->route('member.index');
     }
 
     /**
@@ -69,9 +113,10 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Member $member)
+    public function update(MemberEditRequest $request, Member $member)
     {
-        //
+        $member->update($request->all());
+        return redirect()->route('member.index');
     }
 
     /**
@@ -79,6 +124,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->books()->delete();
+        $member->delete();
     }
 }

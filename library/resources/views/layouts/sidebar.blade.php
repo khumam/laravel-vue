@@ -75,7 +75,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('member') }}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+            <a href="{{ route('member.index') }}" class="nav-link {{ request()->is('member') || request()->is('member/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Member

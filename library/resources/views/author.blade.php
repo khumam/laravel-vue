@@ -2,6 +2,12 @@
 
 @push('css')
   <link rel="stylesheet" href="{{ asset ('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+
+  <style>
+    div.dataTables_wrapper div.dataTables_length select {
+      min-width: 50px;
+    }
+  </style>
 @endpush
 
 @section('content')
@@ -27,7 +33,7 @@
             <div class="col-md-6">
               <h1 class="m-0">{{ $data['title'] }}</h1>
             </div><!-- /.col -->
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <form action="{{ route('author.index') }}">
                 <div class="input-group">
                     <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" name="search" value="{{ request('search') ?? '' }}">
@@ -37,8 +43,8 @@
                         </button>
                     </div>
                 </div>
-            </form>
-            </div>
+              </form>
+            </div> --}}
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -59,13 +65,6 @@
                       </ul>
                   </div>
               @endif
-              @if (count($authors) === 0)
-                <div class="card">
-                  <div class="card-body">
-                    <p><strong>Data not found.</strong></p>
-                  </div>
-                </div>
-              @else
               <div class="card">
                   {{-- modal --}}
                   <div class="modal fade" id="modal-default">
@@ -73,11 +72,11 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h4 class="modal-title">Author</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <button ref="close" id="close_modal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="quickFormAuthor" :action="actionUrl" method="POST">
+                        <form id="quickFormAuthor" @submit=submitForm($event)>
                         <div class="modal-body">
                           <div class="card">
                             
@@ -87,7 +86,7 @@
                                 <div class="card-body">
                                   <div class="form-group">
                                     <label for="exampleInputNama1">Nama</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputNama1" placeholder="Masukkan Nama Publisher" :value="{{ json_encode(old('name')) }} || data.name" required>
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputNama1" placeholder="Masukkan Nama" v-model="{{ json_encode(old('name')) }} || data.name" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -96,7 +95,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Email</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Enter email" :value="{{ json_encode(old('email')) }} || data.email" required>
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Enter email" v-model="{{ json_encode(old('email')) }} || data.email" required>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -105,7 +104,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleInputPhone1">Phone Number</label>
-                                    <input type="number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="exampleInputPhone1" placeholder="Enter Phone Number" :value="{{ json_encode(old('phone_number')) }} || data.phone_number" required>
+                                    <input type="number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="exampleInputPhone1" placeholder="Enter Phone Number" v-model="{{ json_encode(old('phone_number')) }} || data.phone_number" required>
                                     @error('phone_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -114,7 +113,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleInputaddress1">Address</label>
-                                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="exampleInputaddress1" placeholder="Enter address" :value="{{ json_encode(old('address')) }} || data.address">
+                                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="exampleInputaddress1" placeholder="Enter address" v-model="{{ json_encode(old('address')) }} || data.address">
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -125,7 +124,12 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Submit</button>
+                              <button type="submit" class="btn btn-primary">
+                                <div v-if=loading class="spinner-border" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                                Submit
+                              </button>
                             </div>
                         </div>
                       </form>
@@ -151,7 +155,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <table id="example2" class="table table-bordered table-hover">
+                    <table id="myTable" class="table table-bordered table-hover">
                       <thead>
                       <tr>
                         <th>No</th>
@@ -163,45 +167,6 @@
                         <th>Action</th>
                       </tr>
                       </thead>
-                      <tbody>
-                        @foreach ($authors as $key => $author)
-                          <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>
-                              {{ $author->name }}
-                            </td>
-                            <td>
-                              {{ $author->email }}
-                            </td>
-                            <td>
-                              {{ $author->phone_number }}
-                            </td>
-                            <td>
-                              {{ $author->address }}
-                            </td>
-                            <td>{{ date("j F Y, H:i:s", strtotime($author->created_at))}}</td>
-                            <td>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  {{-- <a href="{{ route('author.edit', ['author' => $author->id]) }}" type="button" class="btn btn-outline-warning">
-                                    <i class="fas fa-pen"></i> --}}
-                                    {{-- <span> Edit</span> --}}
-                                  {{-- </a> --}}
-                                  <button @click="editData({{ $author }})" type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#modal-default">
-                                    <i class="fas fa-pen"></i>
-                                  </button>
-                                </div>
-                                <div class="col-md-6">
-                                  <button type="submit" class="btn btn-outline-danger" @click="deleteData({{ $author->id }})">
-                                    <i class="fas fa-trash"></i>
-                                    {{-- <span> Delete</span> --}}
-                                </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
                       {{-- <tfoot>
                       <tr>
                         <th>Rendering engine</th>
@@ -212,13 +177,12 @@
                       </tr>
                       </tfoot> --}}
                     </table>
-                    <div class="pagination">
+                    {{-- <div class="pagination">
                       {{ $authors->links() }}
-                    </div>
+                    </div> --}}
                   </div>
                   <!-- /.card-body -->
               </div>
-              @endif
             </div>
           </div>
           <!-- Small boxes (Stat box) -->
@@ -252,22 +216,90 @@
 @push('js')
 {{-- vue --}}
 <script type="text/javascript">
+  var columns = [
+              {
+                  'data': 'DT_RowIndex',
+                  'class': 'text-center',
+                  'orderable': true
+              },
+              {
+                  'data': 'name',
+                  'class': 'text-center',
+                  'width' : '200px',
+                  'orderable': true
+              },
+              {
+                  'data': 'email',
+                  'class': 'text-center',
+                  'orderable': true
+              },
+              {
+                  'data': 'phone_number',
+                  'class': 'text-center',
+                  'orderable': true
+              },
+              {
+                  'data': 'address',
+                  'class': 'text-center',
+                  'orderable': true
+              },
+              {
+                  'data': 'created_at',
+                  'class': 'text-center',
+                  'width': '180px',
+                  'orderable': true
+              },
+              {
+                  render: (index, row, data, meta) => {
+                    return `
+                    <a href="#" type="button" onclick=author.editData(event,${data.id}) class="btn btn-outline-warning" data-toggle="modal" data-target="#modal-default">
+                                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="#" type="button" onclick=author.deleteData(event,${data.id}) class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                    </a>`
+                  },
+                  'width': '100px',
+                  'orderable': false
+              }
+      ];
+
   var author = new Vue({
     el: '#author',
     data : {
-      data: {
-          name: '',
-          email: '',
-          phone_number: '',
-          address: ''
-        },
+      // apiUrl: {{ url('api/author/list') }},
+      loading:false,
+      data: {},
+      datas: [],
+      columns,
       actionUrl: '{{ route('author.store') }}',
       editStatus: false
     },
     mounted: function () {
-      
+      this.dataTable();
+    },
+    created: function () {
     },
     methods: {
+      dataTable(){
+       const _this = this
+       _this.table =  $('#myTable').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    ajax: {
+                        url:  'api/author/list',
+                        error: function (xhr, error, thrown) {
+                            console.log('Kesalahan AJAX:', error);
+                            console.log('Detail Kesalahan:', thrown);
+                            // Tindakan yang sesuai, misalnya menampilkan pesan kesalahan kepada pengguna
+                        }
+                    },
+                    columns:  _this.columns
+                    }).on('xhr', function () {
+                      // console.log(_this.table.ajax.json().data);
+                      _this.datas = _this.table.ajax.json().data;
+                    })
+      },
       addData(){
         this.actionUrl = '{{ route('author.store') }}'
         this.data = {
@@ -278,18 +310,36 @@
         }
         this.editStatus = false
       },
-      editData(val){
+      editData(event, val){
+        console.log(event, val, this.datas);
         this.editStatus = true
-        this.data = val
+        this.data = this.datas.filter(el => el.id == val)[0];
+        console.log(this.data);
         this.actionUrl = `{{ url('author') }}/${this.data.id}`
+        // $('#modal-default').modal();
       },
-      deleteData(id){
+      deleteData(event,id){
         this.actionUrl = `{{ url('author') }}/${id}`
         if (confirm('Are you sure ?')) {
           axios.post(this.actionUrl, {_method : 'DELETE'}).then(response => {
-            location.reload();
+            alert('Data has been removed')
+            this.table.ajax.reload()
           })
         }
+      },
+      submitForm(event){
+        event.preventDefault();
+        this.loading = true;
+        axios.post(this.actionUrl, new FormData($(event.target)[0])).then( response => {
+          this.table.ajax.reload()
+          this.loading = false
+          const element = this.$refs.close;
+          // Check if the element exists and trigger the click event close modal
+          if (element) {
+            element.click();
+          }
+          
+        })
       }
     }
   })
