@@ -91,7 +91,7 @@
                                     @enderror
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Password</label>
+                                    <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" v-model="{{ json_encode(old('password')) }} || data.password" required autocomplete="new-password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -100,7 +100,7 @@
                                     @enderror
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Confirm Password</label>
+                                    <label for="password-confirm">Confirm Password</label>
                                     <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password" placeholder="Retype password" v-model="{{ json_encode(old('new_password')) }} || data.new_password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -109,9 +109,9 @@
                                     @enderror
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Gender</label>
-                                    <select class="form-select" aria-label=".form-select example">
-                                      <option selected>Pilih Satu</option>
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender" v-model="{{ json_encode(old('gender')) }} || data.gender" class="form-select" aria-label=".form-select example">
+                                      <option selected disabled>Pilih Satu</option>
                                       <option value="L">Laki - Laki</option>
                                       <option value="P">Perempuan</option>
                                     </select>

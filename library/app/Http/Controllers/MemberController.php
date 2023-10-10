@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
@@ -59,7 +60,7 @@ class MemberController extends Controller
      */
     public function store(MemberStoreRequest $request)
     {
-        
+        // dd($request);
         DB::transaction(function () use ($request) {
             try {
                 $data = $request->all();
@@ -85,13 +86,14 @@ class MemberController extends Controller
                 // Jika semuanya berhasil, commit transaksi
                 DB::commit();
             } catch (\Exception $e) {
+                dd($e);
                 // Jika terjadi kesalahan, rollback transaksi
                 DB::rollback();
                 // Handle kesalahan sesuai kebutuhan Anda
             }
         });
         // Member::create($request->all());
-        return redirect()->route('member.index');
+        // return redirect()->route('member.index');
     }
 
     /**
@@ -115,16 +117,65 @@ class MemberController extends Controller
      */
     public function update(MemberEditRequest $request, Member $member)
     {
-        $member->update($request->all());
-        return redirect()->route('member.index');
+
+        DB::transaction(function () use ($request, $member) {
+            try {
+                $data = $request->all();
+
+                $member->name = $data['name'];
+                $member->gender = $data['gender'];
+                $member->phone_number = $data['phone_number'];
+                $member->address = $data['address'];
+                $member->email = $data['email'];
+
+                $member->user->name = $data['name'];
+                $member->user->email = $data['email'];
+                $member->user->password = Hash::make($data['password']);
+
+                $member->user->save();
+                
+                $member->save();
+            
+                // Jika semuanya berhasil, commit transaksi
+                DB::commit();
+            } catch (\Exception $e) {
+                dd($e);
+                // Jika terjadi kesalahan, rollback transaksi
+                DB::rollback();
+                // Handle kesalahan sesuai kebutuhan Anda
+            }
+        });
+
+        // return redirect()->route('member.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Member $member)
-    {
-        $member->books()->delete();
-        $member->delete();
+    {   
+        
+
+        DB::transaction(function () use ($member) {
+            try {
+                $user = Auth::user();
+
+                if ($user->id == $member->user->id) {
+                    throw new \Exception('User saat ini sedang login.');
+                }
+
+                $member->user()->delete();
+                $member->delete();
+            
+                // Jika semuanya berhasil, commit transaksi
+                DB::commit();
+            } catch (\Exception $e) {
+                dd($e);
+                // Jika terjadi kesalahan, rollback transaksi
+                DB::rollback();
+                // Handle kesalahan sesuai kebutuhan Anda
+            }
+        });
+        
     }
 }

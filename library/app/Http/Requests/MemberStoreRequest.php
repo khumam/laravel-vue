@@ -11,7 +11,7 @@ class MemberStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class MemberStoreRequest extends FormRequest
         return [
             "name" => 'required|max:255',
             "password"=> 'required|string|min:8|confirmed',
-            'gender' => 'required',
+            'gender' => 'required|in:L,P',
             "phone_number"=> 'required|numeric|digits_between:1,13',
             "address"=> 'required',
             "email"=> 'required|string|email|max:255|unique:members'
