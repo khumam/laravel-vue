@@ -13,6 +13,17 @@ class Book extends Model
         'id'
     ];
 
+    protected $fillable = [
+        'isbn',
+        'title',
+        'year',
+        'publisher_id',
+        'author_id',
+        'catalog_id',
+        'qty',
+        'price'
+    ];
+
     public function publisher() {
         
         return $this->belongsTo('App\Models\Publisher', 'publisher_id');
@@ -26,5 +37,11 @@ class Book extends Model
     public function author() {
         
         return $this->belongsTo('App\Models\Author', 'author_id');
+    }
+
+    public function scopeFilter($query, array $filters) {
+        $query->when($filters['request']['search'] ?? false, function ($query, $value) {
+            return $query->where('title','like', '%'. $value .'%');
+        });
     }
 }

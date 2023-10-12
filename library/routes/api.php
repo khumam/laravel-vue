@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,8 @@ Route::prefix('author')->group( function(){
 
 Route::prefix('member')->group( function(){
     Route::get('/list', [MemberController::class, 'api'])->name('api.member.list');
+});
+
+Route::prefix('book')->group( function(){
+    Route::get('/list', [BookController::class, 'api'])->name('api.book.list');
 });
