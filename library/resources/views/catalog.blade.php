@@ -78,7 +78,7 @@
                             <td>
                               {{ $catalog->name }}
                             </td>
-                            <td>{{ date("j F Y, H:i:s", strtotime($catalog->created_at))}}</td>
+                            <td>{{ convert_date($catalog->created_at)}}</td>
                             <td>
                               <div class="row">
                                 <div class="col">

@@ -264,6 +264,8 @@
 @push('js')
     {{-- vue --}}
 <script type="text/javascript">
+  const actionUrl = '{{ route('book.store') }}'
+
   var book = new Vue({
     el: '#book',
     data : {
@@ -272,7 +274,7 @@
       loading:false,
       data: {},
       datas: [],
-      actionUrl: '{{ route('book.store') }}',
+      actionUrl,
       editStatus: false,
       search: "",
       timeout: null

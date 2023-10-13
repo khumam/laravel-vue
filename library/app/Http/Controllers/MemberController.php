@@ -22,7 +22,7 @@ class MemberController extends Controller
     {
         $members = Member::orderBy('id', 'desc')->get();
         $datatables = datatables()->of($members)->addIndexColumn()->editColumn('created_at', function(Member $member) {
-            return date("j F Y, H:i:s", strtotime($member->created_at));
+            return convert_date($member->created_at);
         })->make(true);
         return $datatables;
     }

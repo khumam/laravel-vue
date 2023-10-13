@@ -99,7 +99,7 @@
                                 <td>
                                   {{ $publisher->address }}
                                 </td>
-                                <td>{{ date("j F Y, H:i:s", strtotime($publisher->created_at))}}</td>
+                                <td>{{ convert_date($publisher->created_at)}}</td>
                                 <td>
                                   <div class="row">
                                     <div class="col-md-6">

@@ -16,7 +16,7 @@ class AuthorController extends Controller
     {
         $authors = Author::with('books')->orderBy('id', 'desc')->get();
         $datatables = datatables()->of($authors)->addIndexColumn()->editColumn('created_at', function(Author $author) {
-            return date("j F Y, H:i:s", strtotime($author->created_at));
+            return convert_date($author->created_at);
         })->make(true);
         return $datatables;
     }
