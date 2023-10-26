@@ -29,7 +29,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-md-6">
-              <h1 class="m-0">Form {{ $transaction?'Edit' : 'Tambah' }} Peminjaman</h1>
+              <h1 class="m-0">Form {{ isset($transaction)?'Edit' : 'Tambah' }} Peminjaman</h1>
             </div>
         </div><!-- /.container-fluid -->
       </div>
@@ -50,9 +50,9 @@
                               <div class="form-group">
                                 <label for="exampleInputNama1">Anggota</label>
                                 <select id="exampleInputNama1" name="anggota" class="form-control select2 @error('anggota') is-invalid @enderror" style="width: 100%;" required>
-                                    <option {{ $transaction ? '' : 'selected' }} value="" disabled>Pilih Anggota</option>
+                                    <option {{ isset($transaction) ? '' : 'selected' }} value="" disabled>Pilih Anggota</option>
                                     @foreach($members as $member)
-                                    <option {{ $transaction->member_id == $member->id ? 'selected' : '' }} value="{{ $member->id }}">{{ $member->name }}</option>
+                                    <option {{ isset($transaction) && $transaction->member_id == $member->id ? 'selected' : '' }} value="{{ $member->id }}">{{ $member->name }}</option>
                                     @endforeach
                                   </select>
                                   @error('anggota')
@@ -83,7 +83,7 @@
                                 <label for="exampleInputBook1">Books</label>
                                 <select id="exampleInputBook1" class="select2 @error('books') is-invalid @enderror" name="books[]" multiple="multiple" data-placeholder="Pilih Buku" style="width: 100%;">
                                     @foreach($books as $book)
-                                    <option value="{{ $book->id }}" {{ in_array($book->id, $selectedBooks) ? 'selected':'' }}>{{ $book->title }}</option>
+                                    <option value="{{ $book->id }}" {{ isset($selectedBooks) && in_array($book->id, $selectedBooks) ? 'selected':'' }}>{{ $book->title }}</option>
                                     @endforeach
                                 </select>
                                 @error('books')

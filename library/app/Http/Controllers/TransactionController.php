@@ -152,15 +152,21 @@ class TransactionController extends Controller
                 $transaction->member_id = $data['anggota'];
                 $transaction->date_start = $data['date_start'];
                 $transaction->date_end = $data['date_end'];
-                $transaction->status = $data['status'];
-
-                $transaction->save();
+                
 
                 $books = $data['books']??[];
 
                 foreach ($transaction->transactionDetail as $key => $value) {
                     $index = array_search(strval($value->book_id),$books);
                     if (is_int($index)) {
+
+                        // mengembalikan buku
+                        if ($transaction->status == 'false' && $data['status'] == 'true') {
+                            $update_book = Book::find($value->book_id);
+                            $update_book->qty +=  1;
+                            $update_book->save();
+                        }
+
                         array_splice($books,$index,1);
                     }
                     else{
@@ -174,6 +180,9 @@ class TransactionController extends Controller
 
                     }
                 }
+
+                $transaction->status = $data['status'];
+                $transaction->save();
 
                 foreach($books as $book){
 
