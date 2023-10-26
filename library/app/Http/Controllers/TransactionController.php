@@ -26,7 +26,7 @@ class TransactionController extends Controller
             $startDate = new DateTime($transaction->date_start);
             $endDate = new DateTime($transaction->date_end);
             $interval = $startDate->diff($endDate);
-            $days = $interval->d;
+            $days = $interval->days;
             $transaction->lamaPinjam = $days;
 
             $transaction->totalBuku = 0;

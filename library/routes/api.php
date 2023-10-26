@@ -37,4 +37,8 @@ Route::prefix('book')->group( function(){
 
 Route::prefix('transaction')->group( function(){
     Route::get('/list', [TransactionController::class, 'api'])->name('api.transaction.list');
+    Route::get('/notif', function () {
+        $data = cekKeterlambatan();
+        return compact('data');
+    })->name('api.transaction.notif');
 });
