@@ -43,26 +43,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('catalog.index') }}" class="nav-link {{ request()->is('catalog') || request()->is('catalog/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-table"></i>
+            <a href="{{ route('transaction.index') }}" class="nav-link {{ request()->is('transaction') || request()->is('transaction/*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-list"></i>
               <p>
-                Catalog
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('publisher.index') }}" class="nav-link {{ request()->is('publisher') || request()->is('publisher/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Publisher
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('author.index') }}" class="nav-link {{ request()->is('author') || request()->is('author/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Author
+                Peminjaman
               </p>
             </a>
           </li>
@@ -75,13 +59,49 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('member.index') }}" class="nav-link {{ request()->is('member') || request()->is('member/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
               <p>
-                Member
+                Data Master
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('catalog.index') }}" class="nav-link {{ request()->is('catalog') || request()->is('catalog/*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                    Catalog
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('publisher.index') }}" class="nav-link {{ request()->is('publisher') || request()->is('publisher/*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                    Publisher
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('author.index') }}" class="nav-link {{ request()->is('author') || request()->is('author/*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                    Author
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('member.index') }}" class="nav-link {{ request()->is('member') || request()->is('member/*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Member
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

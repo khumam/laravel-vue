@@ -43,5 +43,9 @@ class Book extends Model
         $query->when($filters['request']['search'] ?? false, function ($query, $value) {
             return $query->where('title','like', '%'. $value .'%');
         });
+
+        $query->when($filters['request']['qty'] ?? false, function ($query, $value) {
+            return $query->where('qty','>', 0);
+        });
     }
 }

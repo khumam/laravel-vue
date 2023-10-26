@@ -25,4 +25,11 @@ class Member extends Model
         
         return $this->hasMany(Transaction::class, 'member_id');
     }
+
+    public function scopeFilter($query, array $filters) {
+        // dd($filters['request']['gender']);
+        $query->when($filters['request']['gender'] ?? false, function ($query, $value) {
+            return $query->where('gender', $value);
+        });
+    }
 }

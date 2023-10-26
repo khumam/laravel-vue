@@ -20,7 +20,7 @@ class MemberController extends Controller
      */
     public function api(Request $request)
     {
-        $members = Member::orderBy('id', 'desc')->get();
+        $members = Member::orderBy('id', 'desc')->filter(compact('request'))->get();
         $datatables = datatables()->of($members)->addIndexColumn()->editColumn('created_at', function(Member $member) {
             return convert_date($member->created_at);
         })->make(true);
@@ -173,6 +173,8 @@ class MemberController extends Controller
                 dd($e);
                 // Jika terjadi kesalahan, rollback transaksi
                 DB::rollback();
+
+                return response('An internal server error occurred.', 500);
                 // Handle kesalahan sesuai kebutuhan Anda
             }
         });

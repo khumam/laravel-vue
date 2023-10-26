@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +33,8 @@ Route::prefix('member')->group( function(){
 
 Route::prefix('book')->group( function(){
     Route::get('/list', [BookController::class, 'api'])->name('api.book.list');
+});
+
+Route::prefix('transaction')->group( function(){
+    Route::get('/list', [TransactionController::class, 'api'])->name('api.transaction.list');
 });

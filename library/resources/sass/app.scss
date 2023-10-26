@@ -4,8 +4,8 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import 'bootstrap/scss/bootstrap';
+// // Bootstrap
+// @import 'bootstrap/scss/bootstrap';
 
 
 a {
@@ -20,4 +20,9 @@ a {
 .spinner-border {
     width: 1rem;
     height: 1rem;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu {
+    right: 0;
+    left: auto;
 }

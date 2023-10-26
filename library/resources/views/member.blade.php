@@ -161,14 +161,26 @@
                   <div class="card-header">
                     <div class="row">
                       <div class="col-md-6"><h3 class="card-title">DataTable with minimal features & hover style</h3></div>
-                      
                       <div class="col-md-6">
                         {{-- <a href="{{ route('member.create') }}" type="button" class="btn btn-primary float-right">
                           <i class="fas fa-plus"></i><span> Add member</span>
                         </a> --}}
-                        <button @click="addData()" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default">
-                          <i class="fas fa-plus"></i><span> Add member</span>
-                        </button>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <select v-model="gender" @change="changeFilter" class="custom-select">
+                                <option value="">Filter Jenis Kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <button @click="addData()" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default">
+                              <i class="fas fa-plus"></i><span> Add member</span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
@@ -236,6 +248,7 @@
 @push('js')
 {{-- vue --}}
 <script type="text/javascript">
+  var apiUrl = 'api/member/list';
   var columns = [
               {
                   'data': 'DT_RowIndex',
@@ -287,6 +300,7 @@
     el: '#member',
     data : {
       // apiUrl: {{ url('api/member/list') }},
+      gender: '',
       loading:false,
       data: {},
       datas: [],
@@ -300,13 +314,17 @@
     created: function () {
     },
     methods: {
+      changeFilter(){
+        this.table.ajax.url(apiUrl + (this.gender ? `?gender=${this.gender}` : '')).load()
+      },
       dataTable(){
        const _this = this
        _this.table =  $('#myTable2').DataTable({
                     "processing": true,
                     "serverSide": true,
                     ajax: {
-                        url:  'api/member/list',
+                        type: "get",
+                        url:  apiUrl,
                         error: function (xhr, error, thrown) {
                             console.log('Kesalahan AJAX:', error);
                             console.log('Detail Kesalahan:', thrown);
