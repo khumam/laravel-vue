@@ -24,13 +24,13 @@ use App\Models\Publisher;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
     Route::resource('home',HomeController::class);
     Route::resource('catalog',CatalogController::class);
@@ -39,7 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('member',MemberController::class);
     Route::resource('book',BookController::class);
     Route::resource('transaction',TransactionController::class);
-    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+    // Route::get('/home', [HomeController::class, 'index'])->name('home.index');
     // Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
     // Route::get('/author', [AuthorController::class, 'index'])->name('author');
     // Route::get('/book', [BookController::class, 'index'])->name('book');

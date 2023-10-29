@@ -35,13 +35,14 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('home.index') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+            <a href="{{ route('home.index') }}" class="nav-link {{ request()->is('home') || request()->is('/') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
+          @role(['admin','petugas'])
           <li class="nav-item">
             <a href="{{ route('transaction.index') }}" class="nav-link {{ request()->is('transaction') || request()->is('transaction/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-list"></i>
@@ -50,6 +51,7 @@
               </p>
             </a>
           </li>
+          @endrole
           <li class="nav-item">
             <a href="{{ route('book.index') }}" class="nav-link {{ request()->is('book') || request()->is('book/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
@@ -58,6 +60,7 @@
               </p>
             </a>
           </li>
+          @role('admin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
@@ -101,7 +104,7 @@
               </li>
             </ul>
           </li>
-          
+          @endrole
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

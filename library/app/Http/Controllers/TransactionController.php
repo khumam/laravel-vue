@@ -47,7 +47,16 @@ class TransactionController extends Controller
     }
     public function index()
     {
-        return view('peminjaman');
+
+        // yang bisa hanya role 'petugas' yang memiliki permissions 'index transaction'
+        if (auth()->user()->can('index transaction')) {
+            
+            return view('peminjaman');
+        }
+        else {
+            abort(403);
+        }
+
     }
 
     /**

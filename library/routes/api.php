@@ -42,3 +42,8 @@ Route::prefix('transaction')->group( function(){
         return compact('data');
     })->name('api.transaction.notif');
 });
+
+Route::get('/permissions', function () {
+    $data = cekRolePermission();
+    return compact('data');
+})->name('api.role');
